@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>S&P 500 Live Chart</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #f9f9f9;
+      margin: 0;
+      padding: 20px;
+    }
+    .buttons {
+      margin-bottom: 15px;
+    }
+    .buttons button {
+      margin: 5px;
+      padding: 10px 15px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>S&P 500 Live Chart</h1>
+  <div class="buttons">
+    <button onclick="loadChart('1')">1 Minute</button>
+    <button onclick="loadChart('5')">5 Minutes</button>
+    <button onclick="loadChart('60')">1 Hour</button>
+    <button onclick="loadChart('D')">1 Day</button>
+    <button onclick="loadChart('W')">1 Week</button>
+    <button onclick="loadChart('M')">1 Month</button>
+  </div>
+
+  <div class="tradingview-widget-container">
+    <div id="tradingview_chart"></div>
+  </div>
+
+  <script src="https://s3.tradingview.com/tv.js"></script>
+  <script>
+    let widget;
+
+    function loadChart(interval) {
+      if (widget) widget.remove();
+      widget = new TradingView.widget({
+        "width": "100%",
+        "height": 600,
+        "symbol": "SP:SPX",
+        "interval": interval,
+        "timezone": "Etc/UTC",
+        "theme": "light",
+        "style": "1",
+        "locale": "en",
+        "toolbar_bg": "#f1f3f6",
+        "enable_publishing": false,
+        "container_id": "tradingview_chart"
+      });
+    }
+
+    // Load default chart (1 Day)
+    loadChart('D');
+  </script>
+</body>
+</html>
